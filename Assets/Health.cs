@@ -1,16 +1,17 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [Header("Attributes")]
+    [SerializeField] private int hitPoints = 2;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void TakeDamage(int damage){
+        hitPoints -= damage;
+        if(hitPoints <= 0){
+            EnemySpawner.onEnemyDestroy.Invoke();
+            Destroy(gameObject);
+        }
     }
 }
