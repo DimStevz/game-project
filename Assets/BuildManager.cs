@@ -5,11 +5,15 @@ public class BuildManager : MonoBehaviour
     public static BuildManager main;
 
     [Header("References")]
-    [SerializeField] private GameObject[] buildingPrefabs;
+    [SerializeField] private GameObject[] towerPrefabs;
 
-    private int currentSelectedTower = 0;
+    private int selectedTower = 0;
 
     private void Awake(){
         main = this;
+    }
+
+    public GameObject GetSelectedTower(){
+        return towerPrefabs[selectedTower];
     }
 }
