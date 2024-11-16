@@ -44,9 +44,18 @@ public class Plot : MonoBehaviour
     private void OnMouseDown()
     {
         if (tower != null) return;
-        GameObject towerToBuild = BuildManager.main.GetSelectedTower();
+        Tower towerToBuild = BuildManager.main.GetSelectedTower();
         if (towerToBuild == null) return;
-        tower = Instantiate(towerToBuild, transform.position, Quaternion.identity);
+
+        if(towerToBuild.cost > Levelmanager.main.coin)
+        {
+            Debug.Log("Not enough coin");
+            return;
+        }
+
+        Levelmanager.main.DecreaseCoin(towerToBuild.cost);
+
+        tower = Instantiate(towerToBuild.prefab, transform.position, Quaternion.identity);
     }
 
 }
