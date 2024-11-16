@@ -9,7 +9,7 @@ public class Turret : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform turretRotationPoint;
     [SerializeField] private LayerMask enemyMask;
-    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GameObject bulletPrefab = null;
     [SerializeField] private Transform firingPoint;
 
     [Header("Attributes")]
@@ -32,7 +32,7 @@ public class Turret : MonoBehaviour
         if (!CheckTargetIsInRange()){
             target = null;
         } else {
-            timeUntillFire -= Time.deltaTime;
+            timeUntillFire += Time.deltaTime;
 
             if(timeUntillFire >= 1f / bps){
                 Shoot();
@@ -42,7 +42,18 @@ public class Turret : MonoBehaviour
     }
 
     private void Shoot(){
-        Debug.Log("Shoot");
+        if (bulletPrefab == null || firingPoint == null) {
+            Debug.LogError("Bullet prefab or firing point is not assigned.");
+            return;
+        }
+
+        GameObject bulletObj = Instantiate(bulletPrefab, firingPoint.position, firingPoint.rotation);
+        Bullet bulletScript = bulletObj.GetComponent<Bullet>();
+        if (bulletScript != null) {
+            bulletScript.SetTarget(target);
+        } else {
+            Debug.LogError("Bullet script is not found on the instantiated bullet object.");
+        }
     }
 
     private void FindTarget()

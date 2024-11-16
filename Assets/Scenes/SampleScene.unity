@@ -6249,6 +6249,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 580f4b56bace46c439fd7ab27827b0c1, type: 3}
+--- !u!4 &1791363439 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6590767478916718597, guid: 59535627a57334a4daf69a24040ef1a3, type: 3}
+  m_PrefabInstance: {fileID: 4653411395598375928}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1794309622 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9116808931285533004, guid: 580f4b56bace46c439fd7ab27827b0c1, type: 3}
@@ -7331,6 +7336,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret
       objectReference: {fileID: 0}
+    - target: {fileID: 1687126686531982443, guid: 59535627a57334a4daf69a24040ef1a3, type: 3}
+      propertyPath: firingPoint
+      value: 
+      objectReference: {fileID: 1791363439}
+    - target: {fileID: 1687126686531982443, guid: 59535627a57334a4daf69a24040ef1a3, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1189264865585167129, guid: b6958bc65bc937c46b619792dd551f41, type: 3}
     - target: {fileID: 6005339909910133725, guid: 59535627a57334a4daf69a24040ef1a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
