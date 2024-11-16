@@ -20,11 +20,9 @@ public class Turret : MonoBehaviour
         if (target == null)
         {
             FindTarget();
+            return;
         }
-        else
-        {
-            AimAtTarget();
-        }
+        RotateTowardsTarget();
     }
 
     private void FindTarget()
@@ -34,6 +32,13 @@ public class Turret : MonoBehaviour
         {
             target = hits[0].transform;
         }
+    }
+
+    private void RotateTowardsTarget(){
+        float angle = Mathf.Atan2(target.position.y - transform.position.y, target.position.x - transform.position.x) * Mathf.Rad2Deg;
+
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
+        transform.rotation = targetRotation;
     }
     private void OnDrawGizmosSelected()
     {
