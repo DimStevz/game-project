@@ -19,4 +19,30 @@ public class Levelmanager : MonoBehaviour
 
     public Transform[] startPoint;
     public Transform[] path;
+
+    public int coin;
+
+    private void Start()
+    {
+        coin = 100;
+    }
+    public void IncreaseCoin(int amount)
+    {
+        coin += amount;
+    }
+
+    public bool DecreaseCoin(int amount)
+    {
+        if(amount <= coin)
+        {
+            //buy item
+            coin -= amount;
+            return true;
+        }
+        else
+        {
+            Debug.Log("Not enough coin");
+            return false;
+        }
+    }
 }
