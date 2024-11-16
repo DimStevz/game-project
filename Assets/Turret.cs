@@ -9,11 +9,16 @@ public class Turret : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform turretRotationPoint;
     [SerializeField] private LayerMask enemyMask;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform firingPoint;
 
     [Header("Attributes")]
     [SerializeField] private float targetingRange = 3f;
+    [SerializeField] private float rotationSpeed = 200f;
+    [SerializeField] private float bps = 1f; //bullet per second
 
     private Transform target;
+    private float timeUntillFire;
 
     private void Update()
     {
@@ -23,6 +28,21 @@ public class Turret : MonoBehaviour
             return;
         }
         RotateTowardsTarget();
+
+        if (!CheckTargetIsInRange()){
+            target = null;
+        } else {
+            timeUntillFire -= Time.deltaTime;
+
+            if(timeUntillFire >= 1f / bps){
+                Shoot();
+                timeUntillFire = 0f;
+            }
+        }
+    }
+
+    private void Shoot(){
+        Debug.Log("Shoot");
     }
 
     private void FindTarget()
@@ -34,11 +54,14 @@ public class Turret : MonoBehaviour
         }
     }
 
+    private bool CheckTargetIsInRange(){
+         return Vector2.Distance(target.position, transform.position) < targetingRange;
+    }
     private void RotateTowardsTarget(){
-        float angle = Mathf.Atan2(target.position.y - transform.position.y, target.position.x - transform.position.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(target.position.y - transform.position.y, target.position.x - transform.position.x) * Mathf.Rad2Deg - 90f;
 
         Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
-        transform.rotation = targetRotation;
+        turretRotationPoint.rotation = Quaternion.RotateTowards(turretRotationPoint.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
     private void OnDrawGizmosSelected()
     {
